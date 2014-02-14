@@ -4,9 +4,9 @@
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="src" path="/DALUtils"/>
 	<classpathentry kind="src" path="/DALUtils.HibernateImplementation"/>
-	<classpathentry kind="var" path="EXTERNAL/ejb3-persistence.jar"/>
-	<classpathentry kind="var" path="EXTERNAL/hibernate-core.jar"/>
-	<classpathentry kind="var" path="EXTERNAL/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="/External/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="/External/hibernate-core.jar"/>
+	<classpathentry kind="lib" path="/External/log4j-1.2.15.jar"/>
 	<classpathentry kind="src" path="/Configuration"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>

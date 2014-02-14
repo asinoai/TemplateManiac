@@ -6,9 +6,42 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Runtime"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Scripting"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/DALUtils.HibernateImplementation"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/External"/>
 	<classpathentry kind="src" path="resources"/>
-	<classpathentry kind="var" path="EXTERNAL"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/External/annotations.jar"/>
+	<classpathentry kind="lib" path="/External/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="/External/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="/External/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="/External/asm.jar"/>
+	<classpathentry kind="lib" path="/External/bsh-2.0b4.jar"/>
+	<classpathentry kind="lib" path="/External/c3p0-0.9.0.jar"/>
+	<classpathentry kind="lib" path="/External/cglib-2.1.3.jar"/>
+	<classpathentry kind="lib" path="/External/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="/External/commons-io-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/External/commons-lang-2.1.jar"/>
+	<classpathentry kind="lib" path="/External/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/External/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/External/ehcache-1.5.0.jar"/>
+	<classpathentry kind="lib" path="/External/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="/External/ganymed.jar"/>
+	<classpathentry kind="lib" path="/External/hibernate-annotations.jar" sourcepath="C:/Users/cloudlink/.m2/repository/org/hibernate/hibernate-annotations/3.4.0.GA/hibernate-annotations-3.4.0.GA-sources.jar"/>
+	<classpathentry kind="lib" path="/External/hibernate-commons-annotations.jar"/>
+	<classpathentry kind="lib" path="/External/hibernate-core.jar"/>
+	<classpathentry kind="lib" path="/External/hibernate3.jar"/>
+	<classpathentry kind="lib" path="/External/javassist-3.9.0.GA.jar"/>
+	<classpathentry kind="lib" path="/External/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="/External/junit-4.1.jar"/>
+	<classpathentry kind="lib" path="/External/junit-4.4.jar"/>
+	<classpathentry kind="lib" path="/External/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="/External/ojdbc14.jar"/>
+	<classpathentry kind="lib" path="/External/slf4j-api-1.5.8.jar"/>
+	<classpathentry kind="lib" path="/External/slf4j-log4j12.jar"/>
+	<classpathentry kind="lib" path="/External/sqlite-jdbc-3.6.0.jar"/>
+	<classpathentry kind="lib" path="/External/stringtemplate-3.2.1.jar"/>
+	<classpathentry kind="lib" path="/External/svnkit-cli.jar"/>
+	<classpathentry kind="lib" path="/External/svnkit.jar"/>
+	<classpathentry kind="lib" path="/External/trove4j.jar"/>
+	<classpathentry kind="lib" path="/External/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="/External/xml-apis.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

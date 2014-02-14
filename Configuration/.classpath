@@ -5,7 +5,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/DALUtils"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/DALUtils.HibernateImplementation"/>
 	<classpathentry kind="lib" path="/External/ejb3-persistence.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cloudlink/workspace/templateManiac/External/hibernate3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/External/hibernate3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

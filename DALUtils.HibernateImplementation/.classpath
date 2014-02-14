@@ -5,7 +5,7 @@
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/External"/>
 	<classpathentry kind="lib" path="/External/hibernate-core.jar"/>
 	<classpathentry kind="lib" path="/External/hibernate-annotations.jar" sourcepath="C:/Users/cloudlink/.m2/repository/org/hibernate/hibernate-annotations/3.4.0.GA/hibernate-annotations-3.4.0.GA-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cloudlink/workspace/templateManiac/External/dom4j-1.6.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/External/dom4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
