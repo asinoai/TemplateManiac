@@ -5,44 +5,11 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="External">
     <property environment="env"/>
-    <property name="EXTERNAL" value="."/>
     <property name="DALUtils.HibernateImplementation.location" value="../DALUtils.HibernateImplementation"/>
-    <property name="Main.location" value="../Main"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
-    <path id="External.classpath">
-        <pathelement location="annotations.jar"/>
-        <pathelement location="antlr-2.7.6.jar"/>
-        <pathelement location="asm-attrs.jar"/>
-        <pathelement location="asm.jar"/>
-        <pathelement location="c3p0-0.9.0.jar"/>
-        <pathelement location="cglib-2.1.3.jar"/>
-        <pathelement location="commons-collections-3.1.jar"/>
-        <pathelement location="commons-io-1.3.1.jar"/>
-        <pathelement location="commons-lang-2.1.jar"/>
-        <pathelement location="commons-logging-1.0.4.jar"/>
-        <pathelement location="dom4j-1.6.1.jar"/>
-        <pathelement location="ehcache-1.5.0.jar"/>
-        <pathelement location="ejb3-persistence.jar"/>
-        <pathelement location="hibernate-annotations.jar"/>
-        <pathelement location="hibernate-commons-annotations.jar"/>
-        <pathelement location="hibernate-core.jar"/>
-        <pathelement location="hibernate3.jar"/>
-        <pathelement location="javassist-3.9.0.GA.jar"/>
-        <pathelement location="jta-1.1.jar"/>
-        <pathelement location="junit-4.1.jar"/>
-        <pathelement location="junit-4.4.jar"/>
-        <pathelement location="log4j-1.2.15.jar"/>
-        <pathelement location="slf4j-api-1.5.8.jar"/>
-        <pathelement location="slf4j-log4j12.jar"/>
-        <pathelement location="sqlite-jdbc-3.6.0.jar"/>
-        <pathelement location="trove4j.jar"/>
-        <pathelement location="xercesImpl.jar"/>
-        <pathelement location="xml-apis.jar"/>
-        <pathelement location="ojdbc14.jar"/>
-        <pathelement location="${EXTERNAL}"/>
-    </path>
+    <path id="External.classpath"/>
     <target name="init"/>
     <target name="clean"/>
     <target depends="clean" name="cleanall"/>
@@ -54,7 +21,5 @@
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
         <ant antfile="build.xml" dir="${DALUtils.HibernateImplementation.location}" inheritAll="false" target="clean"/>
         <ant antfile="build.xml" dir="${DALUtils.HibernateImplementation.location}" inheritAll="false" target="build"/>
-        <ant antfile="build.xml" dir="${Main.location}" inheritAll="false" target="clean"/>
-        <ant antfile="build.xml" dir="${Main.location}" inheritAll="false" target="build"/>
     </target>
 </project>

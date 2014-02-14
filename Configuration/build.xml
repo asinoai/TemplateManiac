@@ -6,7 +6,6 @@
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="Configuration">
     <property environment="env"/>
     <property name="External.location" value="../External"/>
-    <property name="EXTERNAL" value="."/>
     <property name="Main.location" value="../Main"/>
     <property name="Runtime.location" value="../Runtime"/>
     <property name="DALUtils.location" value="../DALUtils"/>
@@ -17,62 +16,33 @@
     <path id="DALUtils.classpath">
         <pathelement location="${DALUtils.location}/bin"/>
     </path>
-    <path id="External.classpath">
-        <pathelement location="${External.location}/annotations.jar"/>
-        <pathelement location="${External.location}/antlr-2.7.6.jar"/>
-        <pathelement location="${External.location}/asm-attrs.jar"/>
-        <pathelement location="${External.location}/asm.jar"/>
-        <pathelement location="${External.location}/c3p0-0.9.0.jar"/>
-        <pathelement location="${External.location}/cglib-2.1.3.jar"/>
-        <pathelement location="${External.location}/commons-collections-3.1.jar"/>
-        <pathelement location="${External.location}/commons-io-1.3.1.jar"/>
-        <pathelement location="${External.location}/commons-lang-2.1.jar"/>
-        <pathelement location="${External.location}/commons-logging-1.0.4.jar"/>
-        <pathelement location="${External.location}/dom4j-1.6.1.jar"/>
-        <pathelement location="${External.location}/ehcache-1.5.0.jar"/>
-        <pathelement location="${External.location}/ejb3-persistence.jar"/>
-        <pathelement location="${External.location}/hibernate-annotations.jar"/>
-        <pathelement location="${External.location}/hibernate-commons-annotations.jar"/>
-        <pathelement location="${External.location}/hibernate-core.jar"/>
-        <pathelement location="${External.location}/hibernate3.jar"/>
-        <pathelement location="${External.location}/javassist-3.9.0.GA.jar"/>
-        <pathelement location="${External.location}/jta-1.1.jar"/>
-        <pathelement location="${External.location}/junit-4.1.jar"/>
-        <pathelement location="${External.location}/junit-4.4.jar"/>
-        <pathelement location="${External.location}/log4j-1.2.15.jar"/>
-        <pathelement location="${External.location}/slf4j-api-1.5.8.jar"/>
-        <pathelement location="${External.location}/slf4j-log4j12.jar"/>
-        <pathelement location="${External.location}/sqlite-jdbc-3.6.0.jar"/>
-        <pathelement location="${External.location}/trove4j.jar"/>
-        <pathelement location="${External.location}/xercesImpl.jar"/>
-        <pathelement location="${External.location}/xml-apis.jar"/>
-        <pathelement location="${External.location}/ojdbc14.jar"/>
-        <pathelement location="${EXTERNAL}"/>
-    </path>
+    <path id="External.classpath"/>
     <path id="DALUtils.HibernateImplementation.classpath">
         <pathelement location="${DALUtils.HibernateImplementation.location}/bin"/>
         <path refid="DALUtils.classpath"/>
         <path refid="External.classpath"/>
         <pathelement location="${External.location}/hibernate-core.jar"/>
         <pathelement location="${External.location}/hibernate-annotations.jar"/>
-        <pathelement location="${DALUtils.HibernateImplementation.location}/../External/dom4j-1.6.1.jar"/>
+        <pathelement location="${External.location}/dom4j-1.6.1.jar"/>
     </path>
     <path id="Configuration.classpath">
         <pathelement location="bin"/>
         <path refid="DALUtils.classpath"/>
         <path refid="DALUtils.HibernateImplementation.classpath"/>
         <pathelement location="${External.location}/ejb3-persistence.jar"/>
-        <pathelement location="../External/hibernate3.jar"/>
+        <pathelement location="${External.location}/hibernate3.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="resources">
+                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
