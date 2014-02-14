@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:noNamespaceSchemaLocation="../script.xsd">
+ 	<generator-container>
+ 		<list-generator name="testList">
+ 			<dynamic-content>
+ 				<pattern>a</pattern>
+ 				<pattern>b</pattern>
+ 				<pattern>c</pattern>
+ 				<pattern>1234</pattern>
+ 			</dynamic-content>
+ 		</list-generator>
+ 		<map-generator name="testMap">
+ 			<dynamic-content keyPattern="a">
+ 				<pattern>a</pattern>
+ 			</dynamic-content>
+ 			<dynamic-content keyPattern="a">
+ 				<pattern>b</pattern>
+ 			</dynamic-content>
+ 			<dynamic-content keyPattern="a">
+ 				<pattern>c</pattern>
+ 			</dynamic-content>
+ 			<dynamic-content keyPattern="12345">
+ 				<pattern>1234</pattern>
+ 			</dynamic-content>
+ 		</map-generator>
+ 	</generator-container>
+ 	
+ 	<matcher-container expressionPattern="1234">
+ 		<on-match>
+ 			<message textPattern="$ds.result.value$"/>
+ 		</on-match>
+ 		<is-in-collection theString="testList"/>
+ 	</matcher-container>
+ 	
+ 	<matcher-container expressionPattern="12345">
+ 		<on-match>
+ 			<message textPattern="$ds.result.value$"/>
+ 		</on-match>
+ 		<is-in-collection theString="testMap"/>
+ 	</matcher-container>
+ 	
+
+ 	<matcher-container expressionPattern="d1234">
+ 		<on-match>
+ 			<message textPattern="$ds.result.value$"/>
+ 		</on-match>
+ 		<is-in-collection sourceType="Content">
+ 			<the-string>a</the-string>
+ 			<the-string>b</the-string>
+ 			<the-string>c</the-string>
+ 			<the-string>d1234</the-string>
+ 		</is-in-collection>
+ 	</matcher-container>
+
+ 	<matcher-container expressionPattern="eND">
+ 		<on-match>
+ 			<message textPattern="$ds.result.value$"/>
+ 		</on-match>
+ 		<is-in-collection sourceType="Content" ignoreCase="true">
+ 			<the-string>END</the-string>
+ 			<the-string>WHEN</the-string>
+ 			<the-string>IF</the-string>
+ 		</is-in-collection>
+ 	</matcher-container>
+
+ 	<matcher-container expressionPattern="eND">
+ 		<match-one-of-them>
+	 		<is-in-collection sourceType="Content">
+	 			<the-string>END</the-string>
+	 			<the-string>WHEN</the-string>
+	 			<the-string>IF</the-string>
+	 		</is-in-collection>
+	 		<empty>
+	 			<on-match>
+	 				<message textPattern="no match!"/>
+	 			</on-match>
+	 		</empty>
+ 		</match-one-of-them>
+ 	</matcher-container>
+</script-container>

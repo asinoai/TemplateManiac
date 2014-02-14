@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build-jar" name="Run">
+	<import file="build.xml"/>
+	
+	<property name="Output.Path" value=".out"/>
+	
+	<target name="build-jar">
+        <ant antfile="build.xml" dir="." inheritAll="false" target="build-project"/>
+		<delete file="${Output.Path}/TemplateManiac.jar" />
+		<jar destfile="${Output.Path}/TemplateManiac.jar">
+			<fileset dir="${Configuration.location}/bin" excludes="log4j.properties"/>
+			<fileset dir="${DALUtils.location}/bin" excludes="log4j.properties"/>
+			<fileset dir="${DALUtils.HibernateImplementation.location}/bin" excludes="log4j.properties"/>
+			<fileset dir="./bin" excludes="log4j.properties"/>
+			<fileset dir="${Runtime.location}/bin" excludes="log4j.properties"/>
+			<fileset dir="${Scripting.location}/bin" excludes="log4j.properties"/>
+			<fileset dir="${ScriptingExtensionAPI.location}/bin" excludes="log4j.properties"/>
+			<manifest>
+				<attribute name="Main-Class" value="aron.sinoai.TemplateManiac.Main.Main"/>
+				<attribute name="Class-Path" value="annotations.jar antlr-2.7.6.jar antlr-2.7.7.jar asm-attrs.jar asm.jar c3p0-0.9.0.jar cglib-2.1.3.jar commons-collections-3.1.jar commons-io-1.3.1.jar commons-lang-2.1.jar commons-logging-1.0.4.jar dom4j-1.6.1.jar ehcache-1.5.0.jar ejb3-persistence.jar hibernate-annotations.jar hibernate-commons-annotations.jar hibernate-core.jar hibernate3.jar javassist-3.9.0.GA.jar jta-1.1.jar junit-4.1.jar junit-4.4.jar junit.jar log4j-1.2.15.jar ojdbc14.jar org.hamcrest.core_1.3.0.v201303031735.jar slf4j-api-1.5.8.jar slf4j-log4j12.jar sqlite-jdbc-3.6.0.jar stringtemplate-3.2.1.jar TemplateManiac.jar trove4j.jar xercesImpl.jar xml-apis.jar"/>
+			</manifest>
+		</jar>
+		<copy todir="${Output.Path}">
+			<fileset dir="${External.location}">
+				<include name="annotations.jar"/>
+				<include name="antlr-2.7.6.jar"/>
+				<include name="antlr-2.7.7.jar"/>
+				<include name="asm-attrs.jar"/>
+				<include name="asm.jar"/>
+				<include name="c3p0-0.9.0.jar"/>
+				<include name="cglib-2.1.3.jar"/>
+				<include name="commons-collections-3.1.jar"/>
+				<include name="commons-io-1.3.1.jar"/>
+				<include name="commons-lang-2.1.jar"/>
+				<include name="commons-logging-1.0.4.jar"/>
+				<include name="dom4j-1.6.1.jar"/>
+				<include name="ehcache-1.5.0.jar"/>
+				<include name="ejb3-persistence.jar"/>
+				<include name="hibernate-annotations.jar"/>
+				<include name="hibernate-commons-annotations.jar"/>
+				<include name="hibernate-core.jar"/>
+				<include name="hibernate3.jar"/>
+				<include name="javassist-3.9.0.GA.jar"/>
+				<include name="jta-1.1.jar"/>
+				<include name="slf4j-api-1.5.8.jar"/>
+				<include name="slf4j-log4j12.jar"/>
+				<include name="sqlite-jdbc-3.6.0.jar"/>
+				<include name="stringtemplate-3.2.1.jar"/>
+				<include name="trove4j.jar"/>
+			</fileset>
+		</copy>
+	</target>
+	
+</project>

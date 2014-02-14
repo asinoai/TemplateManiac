@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../script.xsd">
+	<message textPattern="Debug" kind="Debug"/>
+	<message textPattern="Info" kind="Info"/>
+	<message textPattern="Warning" kind="Warning"/>
+	<message textPattern="Error" kind="Error"/>
+	<message textPattern="Fatal" kind="Fatal"/>
+</script-container>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:noNamespaceSchemaLocation="scripts/script.xsd">
+	<directory-data-source fileNamePattern="" iterative="true">
+		<message textPattern="$ds.result.absolutePath$: $ds.result.directory$"/>
+		<generator-container>
+			<file-generator fileNamePattern="TestOutput$currentPage$.txt" pageSizePattern="10">
+				<dynamic-content>
+					<pattern>$ds.result.absolutePath$</pattern>
+					<pattern/>
+				</dynamic-content>
+			</file-generator>
+		</generator-container>
+	</directory-data-source>	
+</script-container>

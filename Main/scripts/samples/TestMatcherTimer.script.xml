@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:noNamespaceSchemaLocation="../script.xsd">
+	
+	<template name="_digits">
+		<matcher-container>
+			<one-or-many-multi>
+				<matcher-timer displayName="mytimer">
+					<one-digit/>
+				</matcher-timer>
+			</one-or-many-multi>
+		</matcher-container>
+	</template>
+	
+	<template name="_thin_whites">
+		<matcher-container>
+			<null-or-many-multi>
+				<one-white/>
+			</null-or-many-multi>
+		</matcher-container>
+	</template>
+
+	<matcher-container expressionPattern="1234567890">
+		<match-one-after-another>
+			<matcher-reference templateName="_thin_whites"/>
+			<matcher-reference templateName="_digits"/>
+			<matcher-reference templateName="_thin_whites"/>
+		</match-one-after-another>
+	</matcher-container>
+</script-container>

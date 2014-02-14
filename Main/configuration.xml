@@ -1,0 +1,6 @@
+<configuration>
+	<mainProperties>
+		<mainProperty name="scriptFile" value="scripts/samples/TestDynamicExtension.script.xml"/>
+ 		<mainProperty name="custom1" value="justtesing"/>
+	</mainProperties>
+</configuration>

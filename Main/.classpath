@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Configuration"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/DALUtils"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Runtime"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Scripting"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/DALUtils.HibernateImplementation"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/External"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="var" path="EXTERNAL"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

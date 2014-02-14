@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../script.xsd">
+	<generator-container>
+		<list-generator name="test">
+			<dynamic-content>
+				<pattern>Hello word!</pattern>
+			</dynamic-content>
+		</list-generator>
+		<message textPattern='$first(ds.all.test.result);format="encodeBase64"$'/>
+	</generator-container>
+</script-container>

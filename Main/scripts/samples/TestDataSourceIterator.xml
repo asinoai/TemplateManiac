@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../script.xsd">
+	<generator-container>
+		<list-generator name="testList">
+			<dynamic-content>
+				<pattern>A</pattern>
+				<pattern>B</pattern>
+				<pattern>C</pattern>
+			</dynamic-content>
+		</list-generator>
+		<map-generator name="testMap">
+			<dynamic-content keyPattern="KeyA">
+				<pattern>A</pattern>
+			</dynamic-content>
+			<dynamic-content keyPattern="KeyB">
+				<pattern>B</pattern>
+			</dynamic-content>
+			<dynamic-content keyPattern="KeyC">
+				<pattern>C</pattern>
+			</dynamic-content>
+		</map-generator>
+	</generator-container>
+	<data-source-iterator dsNamesPattern="testList">
+		<message textPattern="list-element:$ds.result$"/>
+	</data-source-iterator>
+	<data-source-iterator dsNamesPattern="testMap">
+		<message textPattern="map-element:($ds.result$ -> $ds.all.testMap.result.(ds.result)$)"/>
+	</data-source-iterator>
+	<data-source-iterator dsNamesPattern="testList testMap">
+		<message textPattern="list-and-map-element:$ds.result$"/>
+	</data-source-iterator>
+</script-container>

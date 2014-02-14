@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../script.xsd">
+	<generator-container>
+		<matcher-container expressionPattern="(c e(fg) 12)" name="test1">
+			<pair-match>
+				<on-match>
+					<message textPattern="$ds.innerValue$"/>
+				</on-match>
+				<string-match theString="("/>
+				<string-match theString=")"/>
+			</pair-match>
+		</matcher-container>
+		<message textPattern="$ds.all.test1.result.value$"/>
+	</generator-container>
+</script-container>

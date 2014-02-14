@@ -1,0 +1,9 @@
+group testbase;
+
+list_map(map) ::= <<
+$map.keys:{$it$ -> $list_array(map.(it))$};separator="\n"$
+>>
+
+list_array(array) ::= <<
+$array:{$it.elements:{innerit | $innerit$};separator=" "$, $it.positions:{innerit | $innerit$};separator=" "$};separator=", "$
+>>

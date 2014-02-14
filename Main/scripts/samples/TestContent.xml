@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../script.xsd">
+	<generator-container>
+		<file-data-source fileNamePattern="expression.txt" name="lala">
+		</file-data-source>
+		<message textPattern="$ds.all.lala.result$" />
+	</generator-container>
+</script-container>

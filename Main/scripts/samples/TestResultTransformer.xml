@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../script.xsd">
+<generator-container>
+	<list-generator name="data">
+		<dynamic-content><pattern>one</pattern></dynamic-content>
+		<dynamic-content><pattern>two</pattern></dynamic-content>
+		<dynamic-content><pattern>three</pattern></dynamic-content>
+		<dynamic-content><pattern>one</pattern></dynamic-content>
+        <dynamic-content><pattern>two</pattern></dynamic-content>
+        <dynamic-content><pattern>three</pattern></dynamic-content>
+        <dynamic-content><pattern>one</pattern></dynamic-content>
+        <dynamic-content><pattern>two</pattern></dynamic-content>
+        <dynamic-content><pattern>four</pattern></dynamic-content>
+	</list-generator>
+</generator-container>
+<data-source-alias dsNamePattern="data">
+	<result-transformer kind="KeyPatternFinder" >
+		<message textPattern='$ds.result.patterns:list_map();separator="\n"$'/>
+	</result-transformer>
+</data-source-alias>
+
+</script-container>
