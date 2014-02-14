@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:noNamespaceSchemaLocation="../script.xsd">
+	<directory-data-source fileNamePattern="" iterative="true">
+		<message textPattern="$ds.result.absolutePath$: $ds.result.directory$"/>
+	</directory-data-source>	
+
+</script-container>

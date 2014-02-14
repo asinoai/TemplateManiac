@@ -1,0 +1,1281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:complexType name="ScriptingItemBase">
+		<xs:attribute use="optional" name="groupFile" type="xs:string" />
+		<xs:attribute use="optional" name="name" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="ExternalScript">
+		<xs:complexContent>
+			<xs:extension base="ScriptingItemBase">
+				<xs:attribute use="optional" name="fileNamePattern"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="external-script" type="ExternalScript" />
+	<xs:complexType name="IncludeScript">
+		<xs:complexContent>
+			<xs:extension base="ScriptingItemBase">
+				<xs:attribute use="required" name="fileName"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="include-script" type="IncludeScript" />
+	<xs:complexType name="IncludeDynamicScript">
+		<xs:complexContent>
+			<xs:extension base="ScriptingItemBase">
+				<xs:attribute use="required" name="contentPattern"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="include-dynamic-script" type="IncludeDynamicScript" />
+	<xs:complexType name="DynamicExtension">
+		<xs:complexContent>
+			<xs:extension base="ScriptingItemBase">
+				<xs:attribute use="required" name="expressionPattern"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="dynamic-extension" type="DynamicExtension" />
+	<xs:complexType name="GeneratorItemBase">
+		<xs:complexContent>
+			<xs:extension base="ScriptingItemBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GeneratorContainer">
+		<xs:complexContent>
+			<xs:extension base="GeneratorItemBase">
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="hql-data-source" />
+					<xs:element ref="sql-data-source" />
+					<xs:element ref="file-data-source" />
+					<xs:element ref="directory-data-source" />
+					<xs:element ref="result-transformer" />
+					<xs:element ref="data-source-iterator" />
+					<xs:element ref="data-source-alias" />
+					<xs:element ref="content" />
+					<xs:element ref="dynamic-content" />
+					<xs:element ref="file-generator" />
+					<xs:element ref="list-generator" />
+					<xs:element ref="set-generator" />
+					<xs:element ref="map-generator" />
+					<xs:element ref="formatter" />
+					<xs:element ref="message" />
+					<xs:element ref="matcher-container" />
+					<xs:element ref="include-script" />
+					<xs:element ref="include-dynamic-script" />
+					<xs:element ref="script-container" />
+					<xs:element ref="generator-container" />
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="generator-container" type="GeneratorContainer" />
+	<xs:complexType name="GeneratorTargetBase">
+		<xs:complexContent>
+			<xs:extension base="GeneratorContainer">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DataGeneratorBase">
+		<xs:complexContent>
+			<xs:extension base="GeneratorTargetBase">
+				<xs:attribute use="optional" name="keyPattern"
+					type="xs:string" />
+				<xs:attribute use="optional" name="clearOnExecution"
+					type="xs:boolean" />
+				<xs:attribute use="optional" name="inheritTarget"
+					type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="SetGeneratorDataKind">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HashSet"/>
+			<xs:enumeration value="TreeSet"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SetGenerator">
+		<xs:complexContent>
+			<xs:extension base="DataGeneratorBase">
+				<xs:attribute use="optional" name="splitByNewLines"
+					type="xs:boolean" />
+				<xs:attribute use="optional" name="kind"
+					type="SetGeneratorDataKind" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="set-generator" type="SetGenerator" />
+	<xs:complexType name="ListGenerator">
+		<xs:complexContent>
+			<xs:extension base="DataGeneratorBase">
+				<xs:attribute use="optional" name="splitByNewLines"
+					type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="list-generator" type="ListGenerator" />
+	<xs:complexType name="MapGenerator">
+		<xs:complexContent>
+			<xs:extension base="DataGeneratorBase">
+				<xs:attribute use="optional" name="duplicate" 
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="map-generator" type="MapGenerator" />
+	<xs:element name="on-page-start" type="GeneratorContainer" />
+	<xs:element name="on-page-end" type="GeneratorContainer" />
+	<xs:complexType name="FileGenerator">
+		<xs:complexContent>
+			<xs:extension base="GeneratorTargetBase">
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="on-page-start" />
+					<xs:element ref="on-page-end" />
+				</xs:choice>
+				<xs:attribute use="optional" name="fileNamePattern"
+					type="xs:string" />
+				<xs:attribute use="optional" name="encoding"
+					type="xs:string" />
+				<xs:attribute use="optional" name="noLock"
+					type="xs:boolean" />
+				<xs:attribute use="optional" name="forceWritable"
+					type="xs:boolean" />
+				<xs:attribute use="optional" name="pageSizePattern"
+					type="xs:string" />
+				<xs:attribute use="optional" name="pagedDs"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="file-generator" type="FileGenerator" />
+	<xs:element name="pattern" />
+	<xs:complexType name="DynamicContent">
+		<xs:complexContent>
+			<xs:extension base="GeneratorItemBase">
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="pattern" />
+				</xs:choice>      
+				<xs:attribute use="optional" name="keyPattern"
+					type="xs:string" />
+				<xs:attribute use="optional" name="formatterKind"
+					type="xs:string" />
+				<xs:attribute use="optional" name="noContentIfEmpty"
+					type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="dynamic-content" type="DynamicContent" />
+	<xs:element name="text" />
+	<xs:complexType name="Content">
+		<xs:complexContent>
+			<xs:extension base="GeneratorItemBase">
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="text" />
+				</xs:choice>      
+				<xs:attribute use="optional" name="key"
+					type="xs:string" />
+				<xs:attribute use="optional" name="formatterKind"
+					type="xs:string" />
+				<xs:attribute use="optional" name="noContentIfEmpty"
+					type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="content" type="Content" />
+	<xs:simpleType name="MessageKind">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Debug"/>
+					<xs:enumeration value="Info"/>
+					<xs:enumeration value="Warning"/>
+					<xs:enumeration value="Error"/>
+					<xs:enumeration value="Fatal"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:complexType name="Message">
+		<xs:complexContent>
+			<xs:extension base="ScriptingItemBase">
+				<xs:attribute use="optional" name="textPattern"
+					type="xs:string" />
+				<xs:attribute use="optional" name="kind"
+					type="MessageKind" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="message" type="Message" />
+	<xs:complexType name="ScriptContainerBase">
+		<xs:complexContent>
+			<xs:extension base="ScriptingItemBase">
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="pattern" />
+					<xs:element ref="hql-data-source" />
+					<xs:element ref="sql-data-source" />
+					<xs:element ref="file-data-source" />
+					<xs:element ref="directory-data-source" />
+					<xs:element ref="data-source-iterator" />
+					<xs:element ref="data-source-alias" />
+					<xs:element ref="context-data-source" />
+					<xs:element ref="external-script" />
+					<xs:element ref="include-script" />
+					<xs:element ref="include-dynamic-script" />
+					<xs:element ref="dynamic-extension" />
+					<xs:element ref="result-transformer" />
+					<xs:element ref="formatter" />
+					<xs:element ref="message" />
+					<xs:element ref="reloadable-item"/>
+					<xs:element ref="template" />
+					<xs:element ref="matcher-container" />
+					<xs:element ref="script-container" />
+					<xs:element ref="generator-container" />
+				</xs:choice>      
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DataSourceBase">
+		<xs:complexContent>
+			<xs:extension base="ScriptContainerBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Formatter">
+		<xs:complexContent>
+			<xs:extension base="DataSourceBase">
+				<xs:attribute use="optional" name="expressionPattern"
+					type="xs:string" />
+				<xs:attribute use="optional" name="kind"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="formatter" type="Formatter" />
+	<xs:complexType name="QueryDataSource">
+		<xs:complexContent>
+			<xs:extension base="DataSourceBase">
+				<xs:attribute use="optional" name="queryPattern"
+					type="xs:string" />
+				<xs:attribute use="optional" name="iterative"
+					type="xs:boolean" />
+				<xs:attribute use="optional" name="database"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="HqlDataSource">
+		<xs:complexContent>
+			<xs:extension base="QueryDataSource">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="hql-data-source" type="HqlDataSource" />
+	<xs:complexType name="SqlDataSource">
+		<xs:complexContent>
+			<xs:extension base="QueryDataSource">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="sql-data-source" type="SqlDataSource" />
+	<xs:complexType name="ContextDataSource">
+		<xs:complexContent>
+			<xs:extension base="DataSourceBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="context-data-source" type="ContextDataSource" />
+	<xs:complexType name="DataSourceIterator">
+		<xs:complexContent>
+			<xs:extension base="DataSourceBase">
+				<xs:attribute use="required" name="dsNamesPattern"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="data-source-iterator" type="DataSourceIterator" />
+	<xs:complexType name="DataSourceAlias">
+		<xs:complexContent>
+			<xs:extension base="DataSourceBase">
+				<xs:attribute use="optional" name="dsNamePattern"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="data-source-alias" type="DataSourceAlias" />
+	<xs:complexType name="ScriptContainer">
+		<xs:complexContent>
+			<xs:extension base="ScriptContainerBase">
+				<xs:attribute use="optional" name="database"
+					type="xs:string" />
+				<xs:attribute use="optional" name="bscFile"
+					type="xs:string" />
+				<xs:attribute use="optional" name="inheritTarget"
+					type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="script-container" type="ScriptContainer" />
+	<xs:complexType name="FileDataSource">
+		<xs:complexContent>
+			<xs:extension base="DataSourceBase">
+				<xs:attribute use="required" name="fileNamePattern"
+					type="xs:string" />
+				<xs:attribute use="optional" name="byLines"
+					type="xs:boolean" />
+				<xs:attribute use="optional" name="encoding"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="file-data-source" type="FileDataSource" />
+	<xs:complexType name="DirectoryDataSource">
+		<xs:complexContent>
+			<xs:extension base="DataSourceBase">
+				<xs:attribute use="required" name="fileNamePattern"
+					type="xs:string" />
+				<xs:attribute use="optional" name="iterative"
+					type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="directory-data-source" type="DirectoryDataSource" />
+	<xs:complexType name="ResultTansformer">
+		<xs:complexContent>
+			<xs:extension base="DataSourceBase">
+				<xs:attribute use="required" name="kind"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="result-transformer" type="ResultTansformer" />
+	<xs:simpleType name="FormulaProcessorKindType">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="ResetAll"/>
+					<xs:enumeration value="ResetScript"/>
+					<xs:enumeration value="ResetScript4TR"/>
+					<xs:enumeration value="ResetScript4ER"/>
+					<xs:enumeration value="ResetRule"/>
+					<xs:enumeration value="Incremental"/>			
+					<xs:enumeration value="IncrementalJustCached"/>
+					<xs:enumeration value="IncrementalJustNoComment"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:complexType name="FormulaProcessor">
+		<xs:complexContent>
+			<xs:extension base="DataSourceBase">
+				<xs:attribute use="optional" name="kind"
+					type="FormulaProcessorKindType" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="formula-processor" type="FormulaProcessor" />
+	<xs:complexType name="FormulaProcessorRuleCacher">
+		<xs:complexContent>
+			<xs:extension base="GeneratorItemBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="formula-processor-rule-cacher" type="FormulaProcessorRuleCacher" />
+	<xs:simpleType name="FormulaItemContentChoosingStrategy">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Automatic"/>
+			<xs:enumeration value="LongDescriptionWhenNoComment"/>
+			<xs:enumeration value="ShortDescriptionWhenNoComment"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="FormulaItem">
+		<xs:complexContent>
+			<xs:extension base="GeneratorItemBase">
+				<xs:choice minOccurs="1" maxOccurs="1">
+					<xs:element ref="matcher-container" />
+					<xs:element ref="script-container" />
+				</xs:choice>
+				<xs:attribute use="optional" name="contentChoosing"
+					type="FormulaItemContentChoosingStrategy" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="formula-item" type="FormulaItem" />
+	<xs:complexType name="FormulaMatcherGenerator">
+		<xs:complexContent>
+			<xs:extension base="GeneratorItemBase">
+				<xs:attribute use="required" name="expressionPattern"
+					type="xs:string" />
+				<xs:attribute use="required" name="matcherTemplates"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="formula-matcher-generator" type="FormulaMatcherGenerator" />
+	<xs:complexType name="ScriptingTemplate">
+		<xs:complexContent>
+			<xs:extension base="ScriptingItemBase">
+				<xs:choice minOccurs="1" maxOccurs="1">
+					<xs:element ref="matcher-container" />
+					<xs:element ref="script-container" />
+				</xs:choice>
+				<xs:attribute use="optional" name="maxRecursivityLevel"
+					type="xs:integer" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="template" type="ScriptingTemplate" />
+	<xs:complexType name="ReloadableItem">
+		<xs:complexContent>
+			<xs:extension base="ScriptingItemBase">
+				<xs:choice minOccurs="1" maxOccurs="1">
+					<xs:element ref="script-container" />
+				</xs:choice>      
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="reloadable-item" type="ReloadableItem" />
+	<xs:complexType name="MatcherItemBase">
+		<xs:complexContent>
+			<xs:extension base="GeneratorItemBase">
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="on-match" />
+					<xs:element ref="on-after-match" />
+					<xs:element ref="on-partial-match" />
+				</xs:choice>
+				<xs:attribute use="optional" name="expressionPattern"
+					type="xs:string" />
+				<xs:attribute use="optional" name="displayName"
+					type="xs:string" />
+				<xs:attribute use="optional" name="eraseEvents"
+					type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="MatcherScriptContainer">
+		<xs:complexContent>
+			<xs:extension base="ScriptContainerBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="on-match" type="MatcherScriptContainer" />
+	<xs:element name="on-after-match" type="MatcherScriptContainer" />
+	<xs:element name="on-partial-match" type="MatcherScriptContainer" />
+	<xs:complexType name="MatcherContainerBase">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemBase">
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="any-char" />
+					<xs:element ref="char-in-string" />
+					<xs:element ref="char-not-in-string" />
+					<xs:element ref="empty" />
+					<xs:element ref="end-of-parse" />
+					<xs:element ref="start-of-parse" />
+					<xs:element ref="not-end-of-parse" />
+					<xs:element ref="fix-nr-of-times" />
+					<xs:element ref="match-one-of-them" />
+					<xs:element ref="no-digit" />
+					<xs:element ref="no-white" />
+					<xs:element ref="null-or-many-multi" />
+					<xs:element ref="match-one-after-another" />
+					<xs:element ref="one-digit" />
+					<xs:element ref="one-or-many-multi" />
+					<xs:element ref="one-white" />
+					<xs:element ref="string-match" />
+					<xs:element ref="string-pattern-match" />
+					<xs:element ref="byte-match" />
+					<xs:element ref="word-by-word" />
+					<xs:element ref="is-in-collection" />
+					<xs:element ref="reg-exp"/>
+					<xs:element ref="until-the-string"/>
+					<xs:element ref="optional-matching"/>
+					<xs:element ref="matcher-reference"/>
+					<xs:element ref="dynamic-matcher"/>
+					<xs:element ref="matcher-timer"/>
+					<xs:element ref="antlr-matcher"/>
+					<xs:element ref="matcher-with-target"/>
+					<xs:element ref="forward-no-match"/>
+					<xs:element ref="forward-match"/>
+					<xs:element ref="pair-match"/>
+				</xs:choice>      
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="MatcherContainmentBase">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemBase">
+				<xs:choice minOccurs="1" maxOccurs="1">
+					<xs:element ref="any-char" />
+					<xs:element ref="char-in-string" />
+					<xs:element ref="char-not-in-string" />
+					<xs:element ref="empty" />
+					<xs:element ref="end-of-parse" />
+					<xs:element ref="start-of-parse" />
+					<xs:element ref="not-end-of-parse" />
+					<xs:element ref="fix-nr-of-times" />
+					<xs:element ref="match-one-of-them" />
+					<xs:element ref="no-digit" />
+					<xs:element ref="no-white" />
+					<xs:element ref="null-or-many-multi" />
+					<xs:element ref="match-one-after-another" />
+					<xs:element ref="one-digit" />
+					<xs:element ref="one-or-many-multi" />
+					<xs:element ref="one-white" />
+					<xs:element ref="string-match" />
+					<xs:element ref="string-pattern-match" />
+					<xs:element ref="byte-match" />
+					<xs:element ref="word-by-word" />
+					<xs:element ref="is-in-collection" />
+					<xs:element ref="reg-exp"/>
+					<xs:element ref="until-the-string"/>
+					<xs:element ref="optional-matching"/>
+					<xs:element ref="matcher-reference"/>
+					<xs:element ref="dynamic-matcher"/>
+					<xs:element ref="matcher-timer"/>
+					<xs:element ref="antlr-matcher"/>
+					<xs:element ref="matcher-with-target"/>
+					<xs:element ref="forward-no-match"/>
+					<xs:element ref="forward-match"/>
+					<xs:element ref="pair-match"/>
+				</xs:choice>      
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="MatcherContainer">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainmentBase">
+				<xs:attribute use="optional" name="useBacktracking"
+					type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="matcher-container" type="MatcherContainer" />
+	<xs:complexType name="MatcherWithTarget">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainmentBase">
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element ref="list-generator" />
+					<xs:element ref="map-generator" />
+				</xs:choice>      
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="matcher-with-target" type="MatcherWithTarget" />
+	<xs:complexType name="ForwardNoMatch">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainmentBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="forward-no-match" type="ForwardNoMatch" />
+	<xs:complexType name="ForwardMatch">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainmentBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="forward-match" type="ForwardMatch" />
+	<xs:complexType name="PairMatch">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainerBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="pair-match" type="PairMatch" />
+	<xs:complexType name="AnyChar">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="any-char" type="AnyChar" />
+	<xs:complexType name="Empty">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="empty" type="Empty" />	
+	<xs:complexType name="NameValuePair">
+		<xs:attribute use="optional" name="name" type="xs:string" />
+		<xs:attribute use="optional" name="value" type="xs:string" />
+	</xs:complexType>
+	<xs:element name="name-value" type="NameValuePair" />
+	<xs:element name="the-string" />
+	<xs:complexType name="MatcherItemWithStringBase">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemBase">
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="the-string" />
+				</xs:choice>      
+				<xs:attribute use="optional" name="theString"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="the-string-pattern" />
+	<xs:complexType name="MatcherItemWithStringPatternBase">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemBase">
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="the-string-pattern" />
+				</xs:choice>      
+				<xs:attribute use="optional" name="theStringPattern"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EndOfParse">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>	
+    <xs:element name="end-of-parse" type="EndOfParse" />
+	<xs:complexType name="StartOfParse">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>	
+    <xs:element name="start-of-parse" type="StartOfParse" />
+    <xs:complexType name="NotEndOfParse">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>	
+    <xs:element name="not-end-of-parse" type="NotEndOfParse" />
+    <xs:complexType name="MatchOneAfterAnother">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainerBase">
+			</xs:extension>
+		</xs:complexContent>
+    </xs:complexType>
+    <xs:element name="match-one-after-another" type="MatchOneAfterAnother" />
+    <xs:complexType name="MatchOneOfThem">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainerBase">
+				<xs:attribute use="optional" name="matchingKind"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+    </xs:complexType>
+    <xs:element name="match-one-of-them" type="MatchOneOfThem" />
+    <xs:complexType name="FixNrOfTimes">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainmentBase">
+				<xs:attribute use="required" name="nrOfTimes"
+					type="xs:integer" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="fix-nr-of-times" type="FixNrOfTimes" />
+	<xs:complexType name="NullOrManyMulti">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainmentBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="null-or-many-multi" type="NullOrManyMulti" />
+	<xs:complexType name="OneOrManyMulti">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainmentBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="one-or-many-multi" type="OneOrManyMulti" />
+	<xs:complexType name="OptionalMatching">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainmentBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="optional-matching" type="OptionalMatching" />
+	<xs:complexType name="CharInString">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemWithStringBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="char-in-string" type="CharInString" />
+	<xs:complexType name="CharNotInString">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemWithStringBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="char-not-in-string" type="CharNotInString" />
+	<xs:complexType name="StringMatch">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemWithStringBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="string-match" type="StringMatch" />
+	<xs:complexType name="ByteMatch">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemWithStringBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="byte-match" type="ByteMatch" />
+	<xs:complexType name="WordByWord">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemWithStringBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="word-by-word" type="WordByWord" />
+	<xs:complexType name="StringPatternMatch">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemWithStringPatternBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="string-pattern-match" type="StringPatternMatch" />
+	<xs:complexType name="IsInCollection">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemWithStringBase">
+				<xs:attribute use="optional" name="sourceType"
+					type="xs:string" />
+				<xs:attribute use="optional" name="ignoreCase"
+					type="xs:boolean" />
+				<xs:attribute use="optional" name="untilEndOfParsing"
+					type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+		
+	</xs:complexType>
+	<xs:element name="is-in-collection" type="IsInCollection" />
+	<xs:complexType name="UntilTheString">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemWithStringBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="until-the-string" type="UntilTheString" />
+	<xs:complexType name="OneDigit">
+		<xs:complexContent>
+			<xs:extension base="CharInString">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="one-digit" type="OneDigit" />
+	<xs:complexType name="OneWhite">
+		<xs:complexContent>
+			<xs:extension base="CharInString">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="one-white" type="OneWhite" />
+	<xs:complexType name="NoDigit">
+		<xs:complexContent>
+			<xs:extension base="CharNotInString">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="no-digit" type="NoDigit" />
+	<xs:complexType name="NoWhite">
+		<xs:complexContent>
+			<xs:extension base="CharNotInString">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="no-white" type="NoWhite" />
+	<xs:complexType name="RegExp">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemWithStringBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="reg-exp" type="RegExp" />
+	<xs:complexType name="MatcherReferenceBase">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="templateNameType">
+		<xs:union>
+			<xs:simpleType>
+		    	<xs:restriction base="xs:string">
+				 	<xs:enumeration value=""/>
+          <xs:enumeration value="_srp3_open_bracket"/>
+          <xs:enumeration value="_srp3_and"/>
+          <xs:enumeration value="_new_line"/>
+          <xs:enumeration value="srp3_else"/>
+          <xs:enumeration value="srp3_dot"/>
+          <xs:enumeration value="srp3_if_condition"/>
+          <xs:enumeration value="srp3_number_list_item"/>
+          <xs:enumeration value="srp3_content_of"/>
+          <xs:enumeration value="d_no_transformer"/>
+          <xs:enumeration value="srp3_set_field_without_imposta"/>
+          <xs:enumeration value="_srp3_comma"/>
+          <xs:enumeration value="_short_description"/>
+          <xs:enumeration value="_srp3_equals"/>
+          <xs:enumeration value="until_the_end"/>
+          <xs:enumeration value="srp3_else_if"/>
+          <xs:enumeration value="_srp3_zero"/>
+          <xs:enumeration value="thin_whites"/>
+          <xs:enumeration value="item_short_description"/>
+          <xs:enumeration value="srp3_sectionALongFieldNames"/>
+          <xs:enumeration value="_srp3_dot"/>
+          <xs:enumeration value="_srp3_campo"/>
+          <xs:enumeration value="srp3_field_operation_present"/>
+          <xs:enumeration value="start"/>
+          <xs:enumeration value="srp3_expression_node"/>
+          <xs:enumeration value="srp3_unary_operator_replace"/>
+          <xs:enumeration value="_srp3_colon"/>
+          <xs:enumeration value="_srp3_not_equals"/>
+          <xs:enumeration value="item_long_description"/>
+          <xs:enumeration value="srp3_sum"/>
+          <xs:enumeration value="check_box_no"/>
+          <xs:enumeration value="_srp3_and_contextual"/>
+          <xs:enumeration value="_long_description"/>
+          <xs:enumeration value="_id"/>
+          <xs:enumeration value="_srp3_star"/>
+          <xs:enumeration value="_selected"/>
+          <xs:enumeration value="_srp3_semicolon"/>
+          <xs:enumeration value="srp3_contextual_with_both_side_operator"/>
+          <xs:enumeration value="srp3_semicolon"/>
+          <xs:enumeration value="_end_comment"/>
+          <xs:enumeration value="srp3_simple_string"/>
+          <xs:enumeration value="item_selected"/>
+          <xs:enumeration value="end"/>
+          <xs:enumeration value="thin_whites_or_new_line"/>
+          <xs:enumeration value="dataParser"/>
+          <xs:enumeration value="_srp3_greater_then"/>
+          <xs:enumeration value="_srp3_or_explicit"/>
+          <xs:enumeration value="_code"/>
+          <xs:enumeration value="srp3_colon"/>
+          <xs:enumeration value="_srp3_sum"/>
+          <xs:enumeration value="_srp3_else"/>
+          <xs:enumeration value="item_id"/>
+          <xs:enumeration value="item"/>
+          <xs:enumeration value="srp3_simple_no_left_side_operator"/>
+          <xs:enumeration value="srp3_set_field"/>
+          <xs:enumeration value="srp3_if_all_parts"/>
+          <xs:enumeration value="_srp3_or"/>
+          <xs:enumeration value="_srp3_plus"/>
+          <xs:enumeration value="srp3_expression_formatter"/>
+          <xs:enumeration value="_srp3_simple_quote"/>
+          <xs:enumeration value="srp3_simple_field_assigment_with_description"/>
+          <xs:enumeration value="srp3_simple_zero"/>
+          <xs:enumeration value="item_script_field"/>
+          <xs:enumeration value="srp3_field_operation"/>
+          <xs:enumeration value="srp3_digits"/>
+          <xs:enumeration value="_srp3_slash"/>
+          <xs:enumeration value="srp3_number_list"/>
+          <xs:enumeration value="item_code"/>
+          <xs:enumeration value="srp3_generate_if"/>
+          <xs:enumeration value="srp3_field_operation_absent"/>
+          <xs:enumeration value="srp3_if"/>
+          <xs:enumeration value="_srp3_generate"/>
+          <xs:enumeration value="whites_or_new_line"/>
+          <xs:enumeration value="srp3_instruction_separators"/>
+          <xs:enumeration value="srp3_tcor_field"/>
+          <xs:enumeration value="_srp3_pow"/>
+          <xs:enumeration value="_srp3_field_present"/>
+          <xs:enumeration value="srp3_cleanup"/>
+          <xs:enumeration value="srp3_sectionAShortFieldNames"/>
+          <xs:enumeration value="srp3_tag_as_one"/>
+          <xs:enumeration value="srp3_simple_number"/>
+          <xs:enumeration value="_srp3_less_then_or_equal_contextual"/>
+          <xs:enumeration value="_srp3_set_to_null"/>
+          <xs:enumeration value="_srp3_content_of"/>
+          <xs:enumeration value="_srp3_less_then"/>
+          <xs:enumeration value="srp3_field_operation_absent_or_zero"/>
+          <xs:enumeration value="_srp3_greater_then_or_equal_contextual"/>
+          <xs:enumeration value="srp3_operator_tag"/>
+          <xs:enumeration value="item_start"/>
+          <xs:enumeration value="check_box_yes"/>
+          <xs:enumeration value="_srp3_field_absent"/>
+          <xs:enumeration value="srp3_field_node"/>
+          <xs:enumeration value="srp3_comma"/>
+          <xs:enumeration value="srp3_explicit_field"/>
+          <xs:enumeration value="_srp3_close_bracket"/>
+          <xs:enumeration value="srp3_simple_with_both_side_operator"/>
+          <xs:enumeration value="srp3_run"/>
+          <xs:enumeration value="_comment_field"/>
+          <xs:enumeration value="_srp3_imposta"/>
+          <xs:enumeration value="item_comment_field"/>
+          <xs:enumeration value="_srp3_double_quote"/>
+          <xs:enumeration value="srp3_open_tag"/>
+          <xs:enumeration value="item_end"/>
+          <xs:enumeration value="one_line_value"/>
+          <xs:enumeration value="srp3_contextual_operator"/>
+          <xs:enumeration value="_srp3_X"/>
+          <xs:enumeration value="_start_comment"/>
+          <xs:enumeration value="_srp3_minus"/>
+          <xs:enumeration value="srp3_simple_operator"/>
+          <xs:enumeration value="srp3_sectionALongFieldNamesHelper"/>
+          <xs:enumeration value="srp3_sectionAShortFieldNamesHelper"/>
+          <xs:enumeration value="_srp3_field_absent_or_zero"/>
+          <xs:enumeration value="_srp3_else_if"/>
+          <xs:enumeration value="_srp3_is"/>
+          <xs:enumeration value="srp3_instruction_node"/>
+          <xs:enumeration value="item_middle"/>
+          <xs:enumeration value="comment_line_value"/>
+          <xs:enumeration value="srp3_comment_at_start"/>
+          <xs:enumeration value="srp3_set_to_null"/>
+          <xs:enumeration value="_srp3_generate_if"/>
+          <xs:enumeration value="_srp3_run"/>
+          <xs:enumeration value="_srp3_if"/>
+          <xs:enumeration value="srp3_whites"/>
+          <xs:enumeration value="_item_end"/>
+          <xs:enumeration value="srp3_close_tag"/>
+          <xs:enumeration value="srp3_thin_whites"/>
+          <xs:enumeration value="_srp3_or_contextual"/>
+          <xs:enumeration value="srp3_simple_no_right_side_operator"/>
+    				<xs:enumeration value="_accedi"/>
+					<xs:enumeration value="_addition"/>
+					<xs:enumeration value="_altrimenti"/>
+					<xs:enumeration value="_and_between"/>
+					<xs:enumeration value="_assente"/>
+					<xs:enumeration value="_assume_i_valori"/>
+					<xs:enumeration value="_between"/>
+					<xs:enumeration value="_bracket_end"/>
+					<xs:enumeration value="_bracket_open"/>
+					<xs:enumeration value="_c_processing"/>
+					<xs:enumeration value="_campi"/>
+					<xs:enumeration value="_campo"/>
+					<xs:enumeration value="_colon"/>
+					<xs:enumeration value="_commaDelimiter"/>
+					<xs:enumeration value="_compreso"/>
+					<xs:enumeration value="_comunque"/>
+					<xs:enumeration value="_con"/>
+					<xs:enumeration value="_controllo_non_ok"/>
+					<xs:enumeration value="_controllo_ok"/>
+					<xs:enumeration value="_data_riferimento"/>
+					<xs:enumeration value="_dell_elemento_della"/>
+					<xs:enumeration value="_deve_essere_assente"/>
+					<xs:enumeration value="_deve_essere_presente"/>
+					<xs:enumeration value="_di_fgl"/>
+					<xs:enumeration value="_digit"/>
+					<xs:enumeration value="_digits"/>
+					<xs:enumeration value="_diverso_da_operator"/>
+					<xs:enumeration value="_division"/>
+					<xs:enumeration value="_due"/>
+					<xs:enumeration value="_e"/>
+					<xs:enumeration value="_ed_esci_dal_ragionamento"/>
+					<xs:enumeration value="_else_if"/>
+					<xs:enumeration value="_equal"/>
+					<xs:enumeration value="_esegui"/>
+					<xs:enumeration value="_fgl"/>
+					<xs:enumeration value="_field_can_take"/>
+					<xs:enumeration value="_field_cannot_take"/>
+					<xs:enumeration value="_from"/>
+					<xs:enumeration value="_g_processing"/>
+					<xs:enumeration value="_genera"/>
+					<xs:enumeration value="_greater"/>
+					<xs:enumeration value="_greater_or_equal"/>
+					<xs:enumeration value="_imposta"/>
+					<xs:enumeration value="_in"/>
+					<xs:enumeration value="_index"/>
+					<xs:enumeration value="_index_due"/>
+					<xs:enumeration value="_index_uno"/>
+					<xs:enumeration value="_level"/>
+					<xs:enumeration value="_multiplication"/>
+					<xs:enumeration value="_must_be_equal"/>
+					<xs:enumeration value="_must_be_smaller_or_equal"/>
+					<xs:enumeration value="_NB"/>
+					<xs:enumeration value="_negativi_da"/>
+					<xs:enumeration value="_negativo"/>
+					<xs:enumeration value="_nel_mese_di"/>
+					<xs:enumeration value="_nella_decade_di"/>
+					<xs:enumeration value="_new_line"/>
+					<xs:enumeration value="_non_genera"/>
+					<xs:enumeration value="_non_significativo"/>
+					<xs:enumeration value="_not_equal"/>
+					<xs:enumeration value="_null"/>
+					<xs:enumeration value="_oppure"/>
+					<xs:enumeration value="_or"/>
+					<xs:enumeration value="_ovvero"/>
+					<xs:enumeration value="_paragraph_end"/>
+					<xs:enumeration value="_positivi_da"/>
+					<xs:enumeration value="_positivo"/>
+					<xs:enumeration value="_power"/>
+					<xs:enumeration value="_presente"/>
+					<xs:enumeration value="_ricercato_in_base_al"/>
+					<xs:enumeration value="_routine"/>
+					<xs:enumeration value="_se"/>
+					<xs:enumeration value="_sentence_end"/>
+					<xs:enumeration value="_significativo"/>
+					<xs:enumeration value="_smaller"/>
+					<xs:enumeration value="_smaller_or_equal"/>
+					<xs:enumeration value="_stai_generando_le_ftd"/>
+					<xs:enumeration value="_string"/>
+					<xs:enumeration value="_subtraction"/>
+					<xs:enumeration value="_successivamente"/>
+					<xs:enumeration value="_tcor"/>
+					<xs:enumeration value="_tcor_key"/>
+					<xs:enumeration value="_thin_whites"/>
+					<xs:enumeration value="_to"/>
+					<xs:enumeration value="_tre"/>
+					<xs:enumeration value="_trenta"/>
+					<xs:enumeration value="_trovato_il"/>
+					<xs:enumeration value="_uno"/>
+					<xs:enumeration value="_variazioni"/>
+					<xs:enumeration value="_whites"/>
+					<xs:enumeration value="_zero"/>
+					<xs:enumeration value="A_or_B_e_C"/>
+					<xs:enumeration value="A_or_B_e_C_condition"/>
+					<xs:enumeration value="accedi_if"/>
+					<xs:enumeration value="accedi_with_condition_recursive"/>
+					<xs:enumeration value="accedi_with_condition2"/>
+					<xs:enumeration value="accedi_with_condition3"/>
+					<xs:enumeration value="accedi_with_condition4"/>
+					<xs:enumeration value="accedi_with_equal"/>
+					<xs:enumeration value="accedi_with_imposta"/>
+					<xs:enumeration value="accessTable"/>
+					<xs:enumeration value="accessWithField"/>
+					<xs:enumeration value="allRules"/>
+					<xs:enumeration value="allRules_fast"/>
+					<xs:enumeration value="allRules_slow"/>
+					<xs:enumeration value="b_campo_list_separator"/>
+					<xs:enumeration value="b_control_non_ok"/>
+					<xs:enumeration value="b_control_ok"/>
+					<xs:enumeration value="b_data_riferimento_operand"/>
+					<xs:enumeration value="b_description"/>
+					<xs:enumeration value="b_null_assente_operand"/>
+					<xs:enumeration value="b_number_between_operand"/>
+					<xs:enumeration value="b_number_from_to_operand"/>
+					<xs:enumeration value="b_number_list"/>
+					<xs:enumeration value="b_number_list_operand"/>
+					<xs:enumeration value="b_number_list_operand_with_description"/>
+					<xs:enumeration value="b_number_list_with_boolean_separator"/>
+					<xs:enumeration value="b_number_list_with_boolean_separator_excluding_slash"/>
+					<xs:enumeration value="b_number_list_with_boolean_separator_operand"/>
+					<xs:enumeration value="b_number_list_with_boolean_separator_operand_excluding_slash"/>
+					<xs:enumeration value="b_number_list_with_null"/>
+					<xs:enumeration value="b_number_list_with_white_separator"/>
+					<xs:enumeration value="b_number_list_with_white_separator_operand"/>
+					<xs:enumeration value="b_number_operand"/>
+					<xs:enumeration value="b_number_operand_with_description"/>
+					<xs:enumeration value="b_number_operand_with_thousand_separator"/>
+					<xs:enumeration value="b_number_separator"/>
+					<xs:enumeration value="b_string_list_item"/>
+					<xs:enumeration value="b_string_list_item_with_description"/>
+					<xs:enumeration value="b_string_list_operand"/>
+					<xs:enumeration value="b_string_list_separator"/>
+					<xs:enumeration value="b_string_list_with_boolean_separator"/>
+					<xs:enumeration value="b_string_list_with_boolean_separator_operand"/>
+					<xs:enumeration value="b_tcor_table"/>
+					<xs:enumeration value="b_zero"/>
+					<xs:enumeration value="bool_and_accedi_with_bracket"/>
+					<xs:enumeration value="bool_operand"/>
+					<xs:enumeration value="bool_operand_and_accedi_with_equal"/>
+					<xs:enumeration value="bool_operand_atomic"/>
+					<xs:enumeration value="bool_operand_atomic_with_boolean_separator_operand"/>
+					<xs:enumeration value="bool_operand_expression"/>
+					<xs:enumeration value="bool_operand_extended"/>
+					<xs:enumeration value="bool_operand_right"/>
+					<xs:enumeration value="bracketed_bool_operand_atomic"/>
+					<xs:enumeration value="bracketed_e_condition"/>
+					<xs:enumeration value="bracketed_operator"/>
+					<xs:enumeration value="bracketedEqualsOrEqualsAndEquals_condition"/>
+					<xs:enumeration value="campo"/>
+					<xs:enumeration value="campo_2e_condition"/>
+					<xs:enumeration value="campo_condition"/>
+					<xs:enumeration value="campo_condition_right"/>
+					<xs:enumeration value="campo_e_condition"/>
+					<xs:enumeration value="campo_e_or_condition"/>
+					<xs:enumeration value="campo_name"/>
+					<xs:enumeration value="campo_name_list"/>
+					<xs:enumeration value="campo_operand"/>
+					<xs:enumeration value="campo_or_condition"/>
+					<xs:enumeration value="campo_or_e_condition"/>
+					<xs:enumeration value="campo_string_operand"/>
+					<xs:enumeration value="campo_with_composed_condition"/>
+					<xs:enumeration value="conditional_or_boolOperand"/>
+					<xs:enumeration value="conditional_set_field"/>
+					<xs:enumeration value="conditional_set_field_sequence"/>
+					<xs:enumeration value="conditional_set_field2_sequence"/>
+					<xs:enumeration value="control_test_values"/>
+					<xs:enumeration value="di_fgl_with_tipo_record"/>
+					<xs:enumeration value="e_boolOperandAtomic"/>
+					<xs:enumeration value="e_condition"/>
+					<xs:enumeration value="e_condition_with_boolean_separator_operand"/>
+					<xs:enumeration value="e_or_condition"/>
+					<xs:enumeration value="e_right"/>
+					<xs:enumeration value="equal_condition"/>
+					<xs:enumeration value="equal_is_between_condition_right"/>
+					<xs:enumeration value="equalsAndBracketedEqualsOrEqualsAndEquals_condition"/>
+					<xs:enumeration value="equalsOrEqualsAndEquals_condition"/>
+					<xs:enumeration value="expresion_add_operator"/>
+					<xs:enumeration value="expression_operand"/>
+					<xs:enumeration value="fgl"/>
+					<xs:enumeration value="fgl_field_alias"/>
+					<xs:enumeration value="fgl_field_keyword"/>
+					<xs:enumeration value="field_bool_condition"/>
+					<xs:enumeration value="field_bool_condition_with_boolean_separator_operand"/>
+					<xs:enumeration value="field_can_take_values_condition"/>
+					<xs:enumeration value="field_cannot_take_values_condition"/>
+					<xs:enumeration value="field_equal_condition"/>
+					<xs:enumeration value="field_equal_condition_with_boolean_separator_operand"/>
+					<xs:enumeration value="field_greater_condition"/>
+					<xs:enumeration value="field_greater_or_equal_condition"/>
+					<xs:enumeration value="field_in_decade_of_condition"/>
+					<xs:enumeration value="field_in_month_of_condition"/>
+					<xs:enumeration value="field_must_be_equal_condition"/>
+					<xs:enumeration value="field_must_be_smaller_or_equal_condition"/>
+					<xs:enumeration value="field_not_equal_condition"/>
+					<xs:enumeration value="field_not_equal_condition_with_boolean_separator_operand"/>
+					<xs:enumeration value="field_smaller_condition"/>
+					<xs:enumeration value="field_smaller_or_equal_condition"/>
+					<xs:enumeration value="filed_exists"/>
+					<xs:enumeration value="imposta_campo"/>
+					<xs:enumeration value="imposta_campo_list"/>
+					<xs:enumeration value="imposta_campo_to_level"/>
+					<xs:enumeration value="imposta_campo_with_negative_or_positive"/>
+					<xs:enumeration value="imposta_operand"/>
+					<xs:enumeration value="is_between_condition_right"/>
+					<xs:enumeration value="n_report_type_21"/>
+					<xs:enumeration value="n_report_type_22"/>
+					<xs:enumeration value="n_report_type_3"/>
+					<xs:enumeration value="n_report_type_4"/>
+					<xs:enumeration value="n_report_type_5"/>
+					<xs:enumeration value="n_report_type_A1"/>
+					<xs:enumeration value="n_report_type_A2"/>
+					<xs:enumeration value="n_report_type_A3"/>
+					<xs:enumeration value="n_report_type_AT"/>
+					<xs:enumeration value="n_report_type_BIC"/>
+					<xs:enumeration value="n_report_type_BII"/>
+					<xs:enumeration value="n_report_type_BIL"/>
+					<xs:enumeration value="n_report_type_CR"/>
+					<xs:enumeration value="n_report_type_D"/>
+					<xs:enumeration value="n_report_type_E"/>
+					<xs:enumeration value="n_report_type_L"/>
+					<xs:enumeration value="n_report_type_M"/>
+					<xs:enumeration value="n_report_type_PA"/>
+					<xs:enumeration value="n_report_type_W"/>
+					<xs:enumeration value="n_report_type_Y"/>
+					<xs:enumeration value="n_report_type_ZZ"/>
+					<xs:enumeration value="n_sectionA_00008"/>
+					<xs:enumeration value="n_sectionA_00009"/>
+					<xs:enumeration value="n_sectionA_00011"/>
+					<xs:enumeration value="n_sectionA_00154"/>
+					<xs:enumeration value="n_sectionA_00602"/>
+					<xs:enumeration value="n_sectionA_05011"/>
+					<xs:enumeration value="n_sectionA_05612"/>
+					<xs:enumeration value="n_sectionA_note_0"/>
+					<xs:enumeration value="n_sectionA_note_1"/>
+					<xs:enumeration value="n_sectionA_note_2"/>
+					<xs:enumeration value="n_sectionA_note_3"/>
+					<xs:enumeration value="n_sectionA_note_4"/>
+					<xs:enumeration value="n_sectionA_note_5"/>
+					<xs:enumeration value="n_sectionA_note_9"/>
+					<xs:enumeration value="n_sectionA_usedCampoNames"/>
+					<xs:enumeration value="n_sectionA_VOCE_ST_PATR_INDIV"/>
+					<xs:enumeration value="nb"/>
+					<xs:enumeration value="negative_or_positive_of"/>
+					<xs:enumeration value="negative_or_positive_of_field"/>
+					<xs:enumeration value="non_genera"/>
+					<xs:enumeration value="not_equal_condition"/>
+					<xs:enumeration value="one_rule"/>
+					<xs:enumeration value="op_level2"/>
+					<xs:enumeration value="op_level3"/>
+					<xs:enumeration value="operand"/>
+					<xs:enumeration value="operator_operand_atomic"/>
+					<xs:enumeration value="or_boolOperandAtomic"/>
+					<xs:enumeration value="or_condition"/>
+					<xs:enumeration value="or_condition_with_boolean_separator_operand"/>
+					<xs:enumeration value="or_e_condition_with_boolean_separator_operand"/>
+					<xs:enumeration value="or_right"/>
+					<xs:enumeration value="primo_record"/>
+					<xs:enumeration value="reasoning_and_exit"/>
+					<xs:enumeration value="report_type_list"/>
+					<xs:enumeration value="report_type_list_item"/>
+					<xs:enumeration value="run_rule"/>
+					<xs:enumeration value="run_rule_after"/>
+					<xs:enumeration value="run_rule_conditional"/>
+					<xs:enumeration value="run_rule_if"/>
+					<xs:enumeration value="se_bool_operand"/>
+					<xs:enumeration value="se_bool_operand_expression"/>
+					<xs:enumeration value="se_bool_operand_extended"/>
+					<xs:enumeration value="set_field"/>
+					<xs:enumeration value="simple_e_condition"/>
+					<xs:enumeration value="simple_e_or_condition"/>
+					<xs:enumeration value="simple_operator"/>
+					<xs:enumeration value="simple_or_condition"/>
+					<xs:enumeration value="simple_or_e_condition"/>
+					<xs:enumeration value="string_operand"/>
+					<xs:enumeration value="tcor_field_alias"/>
+					<xs:enumeration value="tcor_field_alias_silent"/>
+					<xs:enumeration value="tcor_field_keyword"/>
+					<xs:enumeration value="tcor_field_keyword_silent"/>
+					<xs:enumeration value="tipo_record"/>
+					<xs:enumeration value="two_e_condition"/>
+					<xs:enumeration value="se_bool_operand_and_conditional_set_field_sequence"/>		
+					<xs:enumeration value="se_mixt_numeration_recursiv"/>
+					<xs:enumeration value="_data_valid_on"/>
+					<xs:enumeration value="_date_report"/>
+					<xs:enumeration value="_data_compressa_trimestre"/>
+					<xs:enumeration value="date_in_quarter"/>		
+					<xs:enumeration value="se_bool_operand_with_condition"/>
+					<xs:enumeration value="b_number_operand_with_bracket"/>
+					<xs:enumeration value="op_level4"/>
+					<xs:enumeration value="campo_with_composed_condition_e_condition"/>
+					<xs:enumeration value="altrimenti"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:complexType name="MatcherReference">
+	  <xs:complexContent>
+	   <xs:extension base="MatcherReferenceBase">
+	    <xs:attribute use="required" name="templateName" type="templateNameType" />
+	    <xs:attribute use="optional" name="ns"
+	     type="xs:string" />
+	   </xs:extension>
+	  </xs:complexContent>
+	</xs:complexType>
+	<xs:element name="matcher-reference" type="MatcherReference" />
+	<xs:simpleType name="EvaluateKind">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FirstTime"/>
+			<xs:enumeration value="EachTime"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="DynamicMatcher">
+		<xs:complexContent>
+			<xs:extension base="MatcherReferenceBase">
+				<xs:attribute use="required" name="templatePattern"
+					type="xs:string" />
+				<xs:attribute use="optional" name="evaluate"
+					type="EvaluateKind" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="dynamic-matcher" type="DynamicMatcher" />
+	<xs:complexType name="AntlrMatcher">
+		<xs:complexContent>
+			<xs:extension base="MatcherItemBase">
+				<xs:attribute use="required" name="kind"
+					type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="antlr-matcher" type="AntlrMatcher" />
+	<xs:complexType name="MatcherTimer">
+		<xs:complexContent>
+			<xs:extension base="MatcherContainmentBase">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="matcher-timer" type="MatcherTimer" />
+</xs:schema>

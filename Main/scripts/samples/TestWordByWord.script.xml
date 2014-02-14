@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../script.xsd">
+	<matcher-container expressionPattern="one two tree">
+		<word-by-word theString="one two tree">
+			<on-match>
+				<message textPattern="$ds.result.value$"/>
+			</on-match>
+		</word-by-word>
+	</matcher-container>
+	<matcher-container expressionPattern="one 	two    tree">
+		<word-by-word theString="one two tree">
+			<on-match>
+				<message textPattern="$ds.result.value$"/>
+			</on-match>
+		</word-by-word>
+	</matcher-container>
+	<matcher-container expressionPattern="one 	two    tree  aaa">
+		<match-one-after-another>
+			<word-by-word theString="one two tree">
+				<on-match>
+					<message textPattern="$ds.result.value$"/>
+				</on-match>
+			</word-by-word>
+			<one-or-many-multi>
+				<on-match>
+					<message textPattern="$ds.result.value$"/>
+				</on-match>
+				<any-char/>
+			</one-or-many-multi>
+		</match-one-after-another>
+	</matcher-container>
+	<matcher-container expressionPattern="one 	two    treeaaa">
+		<match-one-after-another>
+			<word-by-word theString="one two tree">
+				<on-match>
+					<message textPattern="$ds.result.value$"/>
+				</on-match>
+			</word-by-word>
+			<one-or-many-multi>
+				<on-match>
+					<message textPattern="$ds.result.value$"/>
+				</on-match>
+				<any-char/>
+			</one-or-many-multi>
+		</match-one-after-another>
+	</matcher-container>
+</script-container>

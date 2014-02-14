@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../script.xsd">
+<context-data-source name="context"/>
+<message textPattern="$ds.all.context.result.runtimeManager.commandLineArguments$"/>
+<message textPattern="$ds.all.context.result.runtimeManager.custom1$"/>
+<message textPattern="$ds.all.context.result.runtimeManager.custom2$"/>
+<message textPattern="$ds.all.context.result.runtimeManager.custom3$"/>
+</script-container>

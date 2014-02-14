@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../script.xsd">
+	<matcher-container expressionPattern="(test_ID1)">
+		<reg-exp theString="\((.*)\)">
+			<on-match>
+				<message textPattern="$first(rest(ds.groups))$"/>
+			</on-match>
+		</reg-exp>
+	</matcher-container>
+	<matcher-container expressionPattern="(test_ID1)">
+		<reg-exp theString="\(.*\)">
+			<on-match>
+				<message textPattern="Here nothing: $first(rest(ds.groups))$"/>
+				<message textPattern="But here something: $ds.result.value$"/>
+			</on-match>
+		</reg-exp>
+	</matcher-container>
+</script-container>

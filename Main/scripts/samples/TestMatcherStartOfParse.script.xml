@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:noNamespaceSchemaLocation="../script.xsd">
+	
+	<matcher-container expressionPattern="a">
+		<match-one-after-another>
+			<on-match>
+				<message textPattern="hello"/>
+			</on-match>
+			<start-of-parse/>
+			<string-match theString="a"/>
+		</match-one-after-another>
+	</matcher-container>
+</script-container>

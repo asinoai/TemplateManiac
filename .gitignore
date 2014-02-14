@@ -1,0 +1,5 @@
+/**/bin
+/.metadata
+/Main/*.db
+/Main/*.log
+/Main/*.log.*

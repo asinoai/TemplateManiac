@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../script.xsd">
+	<generator-container>
+		<set-generator name="test-set">
+			<dynamic-content>
+				<pattern>red</pattern>
+				<pattern>green</pattern>
+				<pattern>blue</pattern>
+			</dynamic-content>
+		</set-generator>
+	</generator-container>
+	
+	<matcher-container expressionPattern="bluee">
+		<is-in-collection theString="test-set">
+			<on-match>
+				<message textPattern="Case A: Matching bluee!"/>
+			</on-match>
+		</is-in-collection>
+	</matcher-container>
+
+	<matcher-container expressionPattern="bluee">
+		<forward-no-match>
+			<on-match>
+				<message textPattern="Case B: Not matching bluee!"/>
+			</on-match>
+			<is-in-collection theString="test-set" untilEndOfParsing="true">
+			</is-in-collection>
+		</forward-no-match>
+	</matcher-container>
+	
+	<matcher-container expressionPattern="blue">
+		<is-in-collection theString="test-set" untilEndOfParsing="true">
+			<on-match>
+				<message textPattern="Case C: Matching blue!"/>
+			</on-match>
+		</is-in-collection>
+	</matcher-container>
+	
+</script-container>

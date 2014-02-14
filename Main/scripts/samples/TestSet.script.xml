@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<script-container groupFile="Test.stg"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../script.xsd">
+	<generator-container>
+		<set-generator name="testHashSet" kind="HashSet">
+			<dynamic-content>
+				<pattern>One</pattern>
+			</dynamic-content>
+			<dynamic-content>
+				<pattern>Two</pattern>
+			</dynamic-content>
+			<dynamic-content>
+				<pattern>Three</pattern>
+			</dynamic-content>
+		</set-generator>
+		<message textPattern='Not ordered since it is hash based: $ds.all.testHashSet.result$'/>
+		<set-generator name="testTreeSet" kind="TreeSet">
+			<dynamic-content>
+				<pattern>One</pattern>
+			</dynamic-content>
+			<dynamic-content>
+				<pattern>Two</pattern>
+			</dynamic-content>
+			<dynamic-content>
+				<pattern>Three</pattern>
+			</dynamic-content>
+		</set-generator>
+		<message textPattern='Ordered since it is tree based: $ds.all.testTreeSet.result$'/>
+	</generator-container>
+</script-container>
