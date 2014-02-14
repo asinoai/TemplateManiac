@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<script-container groupFile="Test.stg"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="../script.xsd">
-	<include-dynamic-script contentPattern="$mytest_script()$"/>
-</script-container>
